@@ -1,9 +1,14 @@
+import sys
+
 import numpy as np
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, logging
 import pickle
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 
 @app.route('/')
